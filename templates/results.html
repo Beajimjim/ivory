@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Resultados de Bloqueo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+    .output-container {
+      background: #f5f5f5;
+      padding: 20px;
+      margin-top: 20px;
+      white-space: pre-wrap; /* Para conservar saltos de línea */
+      border-radius: 4px;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-top: 20px;
+    }
+    .button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Resultados de Bloqueo</h1>
+  <div class="output-container">
+    {{ output }}
+  </div>
+  <p>
+    <a class="button" href="{{ url_for('index') }}">Volver al Inicio</a>
+  </p>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de IPs Bloqueadas</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body class="text-center">
+    <h1>Dashboard de IPs Bloqueadas</h1>
+    <p id="noDataMessage" style="display: none; color: red;">No hay datos de IPs bloqueadas.</p>
+    <canvas id="ipChart" width="400" height="200"></canvas>
+
+    <h2>Últimas IPs Bloqueadas</h2>
+    <ul id="blockedIpsList"></ul>
+
+    <script>
+        const socket = io.connect("http://" + document.domain + ":" + location.port);
+
+        socket.on("new_blocked_ip", function(data) {
+            const blockedIpsList = document.getElementById("blockedIpsList");
+            const newItem = document.createElement("li");
+            newItem.innerHTML = `<strong>⚠️ Nueva IP Bloqueada:</strong> ${data.ip}`;
+            newItem.style.color = "red";
+            blockedIpsList.prepend(newItem);
+            updateChart();  // Actualizar la gráfica en tiempo real
+        });
+
+        function updateChart() {
+            fetch("/flask/stats")
+                .then(response => response.json())
+                .then(data => {
+                    const labels = Object.keys(data);
+                    const values = Object.values(data);
+
+                    if (labels.length === 0) {
+                        document.getElementById("noDataMessage").style.display = "block";
+                        document.getElementById("ipChart").style.display = "none";
+                        return;
+                    } else {
+                        document.getElementById("noDataMessage").style.display = "none";
+                        document.getElementById("ipChart").style.display = "block";
+                    }
+
+                    const ctx = document.getElementById("ipChart").getContext("2d");
+                    new Chart(ctx, {
+                        type: "bar",
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: "Cantidad de Bloqueos",
+                                data: values,
+                                backgroundColor: "rgba(255, 99, 132, 0.5)",
+                                borderColor: "rgba(255, 99, 132, 1)",
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: { beginAtZero: true }
+                            }
+                        }
+                    });
+                });
+        }
+
+        updateChart();
+        setInterval(updateChart, 10000);  // Actualizar cada 10 segundos
+    </script>
+</body>
+</html>
