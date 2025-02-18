@@ -12,19 +12,21 @@ Tecnologías Utilizadas
 
 Estructura del Proyecto
 
-app.py                - Servidor Flask principal
+app.py - Servidor Flask principal
 templates/
-    index.html        - Página principal
-    dashboard.html    - Panel de control con gráficos en tiempo real
-    results.html      - Página de resultados del script de bloqueo
+- index.html - Página principal
+- dashboard.html - Panel de control con gráficos en tiempo real
+- results.html - Página de resultados del script de bloqueo
+
 static/
-    styles.css        - Estilos CSS
-    script.js         - Script de actualización en tiempo real
-ivory.py              - Script de bloqueo importado
-client_config.json    - Configuración del cliente
-server_config.json    - Configuración del servidor
-.htaccess             - Archivo donde se bloquean las IPs
-access.log            - Logs de acceso de Apache
+- styles.css - Estilos CSS
+- script.js - Script de actualización en tiempo real
+
+ivory.py - Script de bloqueo importado
+client_config.json - Configuración del cliente
+server_config.json - Configuración del servidor
+.htaccess - Archivo donde se bloquean las IPs
+access.log - Logs de acceso de Apache
 
 Instalación y Configuración
 
@@ -67,14 +69,18 @@ Dashboard en Tiempo Real
 
 Posibles Errores y Soluciones
 
-- Error de conexión: Verifica que el servidor Flask está en ejecución y Apache está corriendo.
-- No bloquea IPs: Asegúrate de que el archivo .htaccess tiene permisos de escritura.
-- No se muestran gráficos: Verifica que la API /flask/stats devuelve datos correctamente.
+Error de conexión
+Verifica que el servidor Flask está en ejecución y Apache está corriendo.
+
+No bloquea IPs
+Asegúrate de que el archivo .htaccess tiene permisos de escritura.
+
+No se muestran gráficos
+Verifica que la API /flask/stats devuelve datos correctamente.
 
 Licencia
 
 Este proyecto está bajo la licencia MIT.
 
 Si necesitas más detalles o ajustes, dime.
-
 
